@@ -1,5 +1,5 @@
 # 🧪 Mujahid Labs
-(Development & Automation Repository)
+
 Welcome to **mujahid-labs**! This repository serves as a centralized collection of my core development labs, web scrapers, automated business tools, and specialized scripts built using Python and various frameworks.
 
 ---
