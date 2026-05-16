@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="total_hr_print_employee_badge" inherit_id="hr.print_employee_badge">
+
+        <xpath expr="//div[@class='page']"  position="replace">
+            <t t-set="data_report_margin_top" t-value="4"/>
+            <t t-set="data_report_header_spacing" t-value="0"/>
+            <t t-set="data_report_dpi" t-value="90"/>
+
+
+
+                <t t-set="total_counter" t-value="0"/>
+                    <t t-foreach="docs" t-as="employee">
+                        <t t-set="total_counter" t-value="total_counter + 1" />
+                    </t>
+                    <!-- <t t-esc="total_counter "/> -->
+
+                    
+                    <div class="container-fluid">
+                        <div class="row">
+                            <t t-set="counter" t-value="0"/>
+                            <t t-set="foo" t-value="False"/>
+                                <t t-foreach="docs" t-as="employee">
+                                    <t t-if="foo == False">
+
+                                        <div class="col-4" style="height:300pt; width:200pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:5pt">
+                                            <div class="container-fluid p-0">
+                                                <div class="row" style='position: relative;'>
+                                                    <div class="col-6" style='padding-top:15px; padding-left:15px;'>
+                                                        <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:100px; height:100px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                    </div>
+
+                                                    <div class="col-6" style='padding-top:20px; font-size: 15px; font-style: italic;'>
+                                                        Name<br/>
+                                                        <span style='font-weight: bold; font-style: normal;' t-if="employee.name" t-field="employee.name"/>
+
+                                                        <div style='position: absolute; bottom: 0; font-style: italic;'>
+                                                            Dob<br/>
+                                                            <span style='font-weight: bold; font-style: normal;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" style='margin-top:15px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 7px 7px 7px 15px;'>
+                                                    <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:80px;" alt="Company Logo"/>
+                                                </div>
+                                                <div class="row" >
+                                                    <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style=" width:222px; height:222px; " alt="Barcode"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <t t-if="counter==2">
+                                        <t t-set="foo" t-value="True"/>
+                                    </t>
+                                    <t t-set="counter" t-value="counter + 1" />
+                                </t>
+                            </t>
+
+                        </div>
+                    </div>
+
+                    
+                    
+                    <!-- <t t-if="total_counter>4">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="4"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-4" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==7">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t> -->
+
+
+<!-- 
+                    <t t-if="total_counter>8">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="8"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-8" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==11">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>12">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="12"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-12" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==15">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                    <p style="page-break-before:always;"> </p>
+                    
+                    <t t-if="total_counter>16">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="16"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-16" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==19">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>20">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="20"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-20" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==23">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>24">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="24"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-24" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==27">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>28">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="28"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-28" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==31">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                    <p style="page-break-before:always;"> </p>
+
+                    
+                    <t t-if="total_counter>32">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="32"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-32" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==35">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>36">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="36"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-36" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==39">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>40">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="40"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-40" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==43">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>44">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="44"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-44" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==47">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="total_counter>48">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <t t-set="counter" t-value="48"/>
+                                <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="total_counter-48" t-as="employee">
+                                    <t t-foreach="docs[counter]" t-as="employee">
+                                        <t t-if="foo == False">
+                                            <div class="col-3" style="width:160pt; height:222pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:1pt">
+                                                <div class="container-fluid p-0">
+                                                    <div class="row" >
+                                                        <div class="col-6" style='padding-top:5px; padding-left:5px;'>
+                                                            <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:80px; height:80px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                        </div>
+                                                        <div class="col-6" style='padding-top:5px; font-size: 12px;'>
+                                                            Name: <br/>
+                                                            <span style='font-weight: bold;' t-if="employee.name" t-field="employee.name"/>
+                                                            <div >
+                                                                DOB:<br/>
+                                                                <span style='font-weight: bold;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style='margin-top:5px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 5px 5px 5px 5px;'>
+                                                        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:60px;" alt="Company Logo"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <img t-att-src="'/report/barcode/QR/'+employee.barcode"  style="margin-left:20px; padding: 5px 0px 5px 0px; width:170px; height:170px; " alt="Barcode"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <t t-if="counter==51">
+                                            <t t-set="foo" t-value="True"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1" />
+                                    </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+ -->
+
+
+
+        
+        </xpath>
+    </template>
+
+</odoo>
+
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="manifest_report_stn">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="data_report_margin_top" t-value="12" />
+                <t t-set="data_report_header_spacing" t-value="9" />
+                <t t-set="data_report_dpi" t-value="110" />
+                <t t-call="web.internal_layout">
+                    <div style="width: 45%;">
+                        <img t-att-src="image_data_uri(o.warehouse_id.company_id.logo)" />
+                    </div>
+                    <br />
+                    <div class="page">
+                        <div class="row" style="border:2px solid whitesmoke;">
+                            <div class='col-6 '>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Pickup Address:</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="o.warehouse_id.partner_id.street" />
+                                        <t t-esc="o.warehouse_id.partner_id.street2" />
+                                        <br />
+                                        <t t-esc="o.warehouse_id.partner_id.city" />
+                                        <t t-esc="o.warehouse_id.partner_id.zip" />
+
+                                        <!-- <p>A-54 Sector-2 Bawana Industrial Area,
+                                        DSIISC,Delhi-110039</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-6 '>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Contact No.:</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="o.fc_id.partner_id.phone" />
+                                        <t t-esc="o.fc_id.partner_id.mobile" />
+                                        <!-- <p>+91-9354491872</p> -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Email ID:</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <t t-esc="o.fc_id.partner_id.email" />
+                                        <!-- <p>info@fatmug.in</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1
+                            style="text-align:center; font-weight: bold; font-size: x-large; background-color:whitesmoke;">
+                            FBA SHIPMENT - PICKUP MANIFEST</h1>
+                        <div class='col-12' style="border:2px solid whitesmoke;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <strong>Date</strong>
+                                </div>
+                                <div class="col-2">
+                                    <span t-field="o.pickup_date" />
+                                </div>
+                                <div class="col-2">
+                                    <strong>Shipment ID</strong>
+                                </div>
+                                <div class="col-2">
+                                    <span t-field="o.amz_shipment_code" />
+                                </div>
+                                <div class="col-2">
+                                    <strong>No. Of Boxes</strong>
+                                </div>
+                                <div class="col-2">
+                                    <span t-field="o.box_count" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  TABLE -->
+                    <table class="table table-sm table-reports">
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>FBA BOXED LABEL NO.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1" />
+                            <t t-foreach="o.box_ids" t-as="line">
+                                <tr style="text-align: center;">
+                                    <td>
+                                        <t t-esc="counter" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="o.amz_shipment_code" />U00000<t t-esc="counter" />
+                                    </td>
+                                    <t t-set="counter" t-value="counter + 1" />
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <!-- footer -->
+                    <table class="table table-sm table-reports">
+                        <thead>
+                            <tr style='height:85px;  background-color:whitesmoke;'>
+                                <th>DELIVERY PICK-UP PARTNER SIGNATURE</th>
+                                <th>PICK-UP DATE AND TIME</th>
+                                <th>CONTACT NO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_stn">
+        <t t-call="web.html_container">
+        <t t-foreach = "docs" t-as = "o">     
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+                <div class="page">
+    
+                    <div class='row'>
+                        <div class='col-6 '>
+                             <div class="row">
+                                <div class="col-6">
+                                   <strong>Contact Address:</strong> 
+                                </div>
+                                <div class="col-6">
+                                     <t t-esc="o.warehouse_id.company_id.street"/> 
+                                     <t t-esc="o.warehouse_id.name"/> <br/>
+                                     <t t-esc="o.warehouse_id.company_id.city"/> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-6 '>
+                             <div class="row">
+                                <div class="col-6">
+                                   <strong>Contact No.:</strong> 
+                                </div>
+                                <div class="col-6">
+                                <t t-esc="o.warehouse_id.company_id.phone"/>
+                                <t t-esc="o.warehouse_id.company_id.mobile"/>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Email ID:</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.warehouse_id.company_id.email"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1  style="font-weight: bold; font-size: x-large; background-color:powderblue;"> TAX INVOICE ( Delivery Challan )</h1>
+                    <p style="font-style: italic; " >The below mentioned goods are being transferred from our primary GST to additional GST both under the name of FATMUG DESIGNS. The above mentioned details are true and correct to the best of our knowledge. Note: unitQty = Quantity (No. of Units). Total Taxable Value, Total Tax and Total Invoice Value are in INR)</p>
+                    <!-- #below paragraph row -->
+                    <div class='row'>
+                        <!-- date only -->
+                        <div class='col-6 '>
+                             <div class="row">
+                                <div class="col-6">
+                                   <strong>Date</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.pickup_date"/>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Shipment Id</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.amz_shipment_code"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Seller GSTIN#</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.warehouse_id.company_id.vat"/> 
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Shipped From</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.warehouse_id.display_name"/> 
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Address</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.warehouse_id.company_id.street"/> 
+                                    <t t-esc="o.warehouse_id.company_id.street2"/> 
+                                    <t t-esc="o.warehouse_id.company_id.city"/> 
+                                    <t t-esc="o.warehouse_id.company_id.zip"/> <br/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- only invoice -->
+                        <div class='col-6 '>
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Invoice No.:</strong>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.fc_id.partner_id.invoice_warn"/> 
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Reference ID</strong>
+                                </div>
+                                <div class="col-6">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Buyer GSTIN#</strong>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.fc_id.partner_id.vat"/> 
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Shipped To</strong>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.fc_id.partner_id.name"/> 
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Address</strong>
+                                </div>
+                                <div class="col-6">
+                                    <t t-esc="o.fc_id.partner_id.street"/> 
+                                    <t t-esc="o.fc_id.partner_id.street2"/> 
+                                    <t t-esc="o.fc_id.partner_id.city"/> 
+                                    <t t-esc="o.fc_id.partner_id.zip"/> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- APprox weigh -->
+                    <br/>
+                    <div class='row'>
+                        <div class='col-6 '>
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Approx Weight</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-set="foo" t-value="0"/>
+                                    <t t-foreach="o.box_ids" t-as="line">                          
+                                        <t t-if="line.weight">
+                                            <t t-set="foo" t-value="foo+line.weight "/>
+                                        </t>
+                                    </t>
+                                    <h2> <strong><span t-esc="foo"/></strong> weight</h2>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Total Boxes</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <t t-set="foo" t-value="False"/>
+                                    <t t-foreach="o.box_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-if="line">
+                                                    <t t-set="foo" t-value="True"/>
+                                                </t>
+                                            </td>   
+                                        <t/>
+                                        </tr>
+                                    </t>
+                                    <h2> <strong><span t-esc="line_index+1"/></strong> Boxes</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Total Taxable  Value</strong> 
+                                </div>
+                                <div class="col-6">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Total Tax</strong> 
+                                </div>
+                                <div class="col-6">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                   <strong>Total invoice Value</strong> 
+                                </div>
+                                <div class="col-6">
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--AUTHORIZED SIGNATORY - FATMUG DESIGNS -->
+                        <div class='col-6 '>
+                            <div class="row">
+                                <div class="col-12" >
+                                    <strong style='border-bottom:1px solid black'> AUTHORIZED SIGNATORY - FATMUG DESIGNS</strong>  <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+       
+                    <!-- BANK DETAILS -->
+                    <br/>
+                    <div class= 'row'>
+                        <div class='col-6 '>
+                            <div class="row">
+                                <div class="col-6" >
+                                    <strong>Account Name</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <!-- <t t-esc="o.create_uid.bank_account_id"/> -->
+                                    <p>Fatmug Designs</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6" >
+                                    <strong>Account No</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <!-- <t t-esc="o.create_uid.bank_account_id.bank_id"/> -->
+                                    <p>50200043567140</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6" >
+                                    <strong>IFSC Code</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <p>HDFC0000249</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6" >
+                                    <strong>Bank</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <p> HDFC Bank</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6" >
+                                    <strong>Branch</strong> 
+                                </div>
+                                <div class="col-6">
+                                    <p> New Delhi - Dwarka - 110075</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-6'>
+                            <div class="row">
+                                <div class="col-12" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- General Terms -->
+                    <br/>
+                    <div class= 'row'>
+                        <div class='col-6 '>
+                            <h1 style="font-style: italic;">GENERAL TERMS</h1>                          
+                            <p>1) All disputes are subject to Delhi Jurisdiction only.
+                            <br/> 2) All payments to be made through only Cheque/DD/RTGS/NEFT.</p>                                           
+                        </div>
+                        <div class='col-6' >
+                            <h1><br/></h1>
+                            <p>3) Goods once sold will not be taken back.
+                            <br/> 4) Interest @ 2% (P.M) will be charged after 15 Days (if not Paid)</p> 
+                        </div>
+                    </div>
+                </div>
+                <!-- # Table -->
+                <br/>
+                <h1 style="font-weight: bold; font-size:18px"> # MERCHANDISE VALUE AND DETAILS</h1>
+                <table class="table table-sm table-reports">
+                    <thead>
+                        <tr>
+                            <th>S No.</th>
+                            <th>SKUCode</th>
+                            <th>UnitQty</th>
+                            <th class="text-right">BilledPrice</th>
+                            <th class="text-right">SkuMRP</th>
+                            <th class="text-right">Asin</th>
+                            <th class="text-right">FnSku</th>
+                            <th class="text-right">SkuTitle</th>
+                            <th class="text-right">GstRate</th>
+                            <th class="text-right">HSN Code</th>
+                            <th class="text-right">TaxableAmt</th>
+                            <th class="text-right">IgstAmt</th>
+                            <th class="text-right">CgstAmt</th>
+                            <th class="text-right">SgstAmt</th>
+                        </tr>
+                    </thead>
+                        <tbody>   
+                            <t t-set="counter" t-value="1"/>
+                        
+                            <t t-foreach="o.sku_line_ids" t-as="line">
+                                <tr style="border:solid grey 1px; text-align: center;">
+                                    <td>
+                                        <t t-esc="counter"/>
+                                    </td>   
+                                    <td>
+                                        <t t-esc="line.sku_id.sku_code"/>
+                                    </td>  
+                                    <td >
+                                        <t t-esc="line.demanded_quantity"/>
+                                    </td> 
+                                    <td >
+                                        <t t-esc="line.sku_id.sale_price"/>
+                                    </td> 
+                                    <td >
+                                        <t t-esc="line.sku_id.mrp"/>
+                                    </td> 
+                                    <td >
+                                        <t t-esc="line.sku_id.asin"/>
+                                    </td> 
+   
+                                    <td>
+                                         <t t-set="foo" t-value="False"/>
+                                            <t t-foreach="line.sku_id.fba_customer_return_ids" t-as="i">
+                                                <t t-if="foo == False">
+                                                    <p><t t-esc="i.fnsku"/></p>
+                                                    <t t-if="i==i">
+                                                        <t t-set="foo" t-value="True"/>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                    </td>
+                           
+                                    <td>
+                                        <t t-esc="line.sku_id.product_id.name"/>
+                                    </td>
+
+                                    <td>
+                                        <!-- <t t-esc="line.sku_id.product_id.taxes_id.name"/> -->
+                                        <t t-esc="line.sku_id.product_id.kn_tax_rate"/>
+                                    </td>
+
+                                    <td>
+                                        <t t-esc="line.sku_id.product_id.l10n_in_hsn_code"/>
+                                    </td> 
+                           
+                                    <td style='text-align: center;'>
+                                       <p></p>
+                                    </td>
+                                       
+                                    <td>
+                                        <!-- <t t-esc="line.sku_id.product_id.kn_tax_rate"/> -->
+                                        <p></p>
+
+                                    </td>
+
+                                    <td>
+                                        <p></p>
+                                    </td>
+
+                                    <td>
+                                        <p></p>
+                                    </td>                          
+
+                                <t t-set="counter" t-value="counter + 1" />
+                                </tr>
+                            </t>
+
+                        </tbody>
+                </table>
+            </t>
+        </t>
+        </t>
+    </template>
+</odoo>

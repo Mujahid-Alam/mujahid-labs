@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="total_hr_print_employee_badge" inherit_id="hr.print_employee_badge">
+
+        <xpath expr="//div[@class='page']" position="replace">
+            <t t-set="data_report_margin_top" t-value="10" />
+            <t t-set="data_report_header_spacing" t-value="0" />
+            <t t-set="data_report_dpi" t-value="97" />
+
+            <t t-set="total_counter" t-value="0" />
+            <t t-foreach="docs" t-as="employee">
+                <t t-set="total_counter" t-value="total_counter + 1" />
+            </t>
+            <!-- <t t-esc="total_counter "/> -->
+            <t t-set='complete_rows' t-value="total_counter//3" />
+
+            <t t-if="total_counter>0">
+                <t t-foreach='complete_rows + 1' t-as='row'>
+                    <t t-set='items_in_row' t-value="3" />
+                    <t t-if="row == complete_rows">
+                        <t t-set='items_in_row' t-value="total_counter%3" />
+                    </t>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <t t-foreach="items_in_row" t-as="item_counter">
+                                <t t-set='employee' t-value="docs[row*3 + item_counter-1]" />
+                                <div class="col-4"
+                                    style="height:313pt; width:208pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:5pt">
+                                    <div class="container-fluid p-0">
+                                        <div class="row">
+                                            <div class="col-6"
+                                                style='padding-top:15px; padding-left:15px;'>
+                                                <img
+                                                    t-att-src="image_data_uri(employee.avatar_1920)"
+                                                    style='display: block; max-width:100px; max-height:100px; border-radius: 25px; object-fit:cover;'
+                                                    alt="Employee Image" />
+                                            </div>
+                                            <div class="col-6"
+                                                style=' padding-top:43px; font-size: 15px; padding-right: 15px;'>
+                                                Name<br />
+                                                        <span
+                                                    style='font-weight: bold; font-style: normal;'
+                                                    t-if="employee.name" t-field="employee.name" />
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                            style='margin-top:15px; border-top:1px solid lightgray; border-bottom:1px solid lightgray; padding: 3px 0px 6px 15px;'>
+                                            <img t-if="employee.company_id.logo"
+                                                t-att-src="image_data_uri(employee.company_id.logo)"
+                                                style="width:80px; " alt="Company Logo" />
+                                        </div>
+                                        <div class="row">
+                                            <img
+                                                t-att-src="'/report/barcode/QR/'+employee.barcode"
+                                                style="display: block; margin-left: auto; margin-right: auto; padding-top:16px;  width:240px; height:240px; "
+                                                alt="Barcode" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </t>
+                        </div>
+                    </div>
+                    <t t-if='row%3 == 2'>
+                        <p style="page-break-before:always;" />
+                    </t>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,43 @@
+<div class="container-fluid">
+                        <div class="row">
+                            <t t-set="counter" t-value="0"/>
+                            <t t-set="foo" t-value="False"/>
+                                <t t-foreach="docs" t-as="employee">
+                                    <t t-if="foo == False">
+
+                                        <div class="col-4" style="height:306pt; width:204pt; border: 1pt solid black; border-collapse:separate; border-radius:2pt; margin:5pt">
+                                            <div class="container-fluid p-0">
+                                                <div class="row" style='position: relative;'>
+                                                    <div class="col-6" style='padding-top:15px; padding-left:15px;'>
+                                                        <img t-att-src="image_data_uri(employee.avatar_1920)" style='width:100px; height:100px;  border: 1pt solid black; border-radius: 25px;' alt="Employee Image"/>
+                                                    </div>
+
+                                                    <div class="col-6" style='padding-top:20px; font-size: 15px; font-style: italic;  padding-right: 15px;'>
+                                                        Name<br/>
+                                                        <span style='font-weight: bold; font-style: normal;' t-if="employee.name" t-field="employee.name"/>
+
+                                                        <div style='position: absolute; bottom: 0; font-style: italic;'>
+                                                            Dob<br/>
+                                                            <span style='font-weight: bold; font-style: normal;' t-if="employee.birthday" t-field="employee.birthday"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" style='margin-top:15px; border-top:1px solid grey; border-bottom:1px solid grey; padding: 7px 7px 7px 15px;'>
+                                                    <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="width:80px;" alt="Company Logo"/>
+                                                </div>
+                                                <div class="row"  >
+                                                    <img t-att-src="'/report/barcode/QR/'+employee.barcode" style="display: block; margin-left: auto; margin-right: auto; padding-top: 15px; width:224px; height:224px; " alt="Barcode"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <t t-if="counter==2">
+                                        <t t-set="foo" t-value="True"/>
+                                    </t>
+                                    <t t-set="counter" t-value="counter + 1" />
+                                </t>
+                            </t>
+
+                        </div>
+                    </div>

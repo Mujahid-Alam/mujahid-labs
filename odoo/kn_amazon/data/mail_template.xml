@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="amazon_shipments_mail_template" model="mail.template">
+            <field name="name">Amazon Shipments</field>
+            <field name="model_id" ref="kn_amazon.model_kn_amz_shipment"/>
+            <field name="email_from">{{ object.warehouse_id.company_id.email }}</field>
+            <field name="email_to">{{ object.warehouse_id.company_id.email }}</field>
+            <!-- <field name="email_to">mujahidalam1997@gmail.com</field> -->
+            <field name="subject">Ready to dishpatch:  {{ object.amz_shipment_code }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+
+            <div>
+                <!-- <p >
+                    <img t-att-src="image_data_uri(object.warehouse_id.company_id.logo)" style='width: 7%; margin-left:25%;' />
+                </p> -->
+                <div class="card text-white " style="margin-left:25%; margin-right:25%;">
+                    <div class="card-header bg-warning mb-3" style='text-align:center; font-size: 15px;'><strong>Careful now! Check your account, something might be wrong.</strong></div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <strong>Hi George, <br/> <br/></strong>
+                            <strong>We've detected a spike on your account. You might want to take a look.</strong> <br/>
+                            <p style='text-align:center;'><button type="button" class="btn btn-primary" style='text-transform: unset !important;'>Take Action Now</button></p>
+                            <strong>Thanks for your prompt action on this matter.</strong> <br/><br/>
+                        </h5>
+                    </div>
+                </div>
+                    <p  class=" card-text text-muted" style='text-align:center '>
+                        Company Inc, 3 Abbey Road, San Francisco CA 94102 <br/>
+                        Don't like these emails? Unsubscribe. <br/><br/>
+                        Powered by HTMLemail. <br/>
+                    </p>
+            </div>
+            </field>
+            <field name="report_template" ref=""/>
+            <field name="report_name">{{ (object.amz_shipment_code) }}</field>
+        </record>
+    </data>
+</odoo>
+

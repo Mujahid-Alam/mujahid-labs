@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="kn_product_label_wizard_template">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="10" />
+            <t t-set="data_report_header_spacing" t-value="9" />
+            <t t-set="data_report_dpi" t-value="143" />
+            <t t-call="web.basic_layout">
+                <t t-if='form'>
+                    <div class="page">
+                        <t t-set='qty' t-value="form['manual_qty']" />
+                        <t t-if='qty == 0'>
+                            <t t-set='qty' t-value="form['qty']" />
+                        </t>
+                        <t t-set='complete_rows' t-value="qty//4" />
+
+                        <t t-if="qty">
+                            <t t-if="amz_sku">
+                                <t t-foreach="complete_rows + 1" t-as="row">
+                                    <t t-set='labels_in_row' t-value="4" />
+                                    <t t-if='row == (complete_rows + 1)'>
+                                        <t t-set='labels_in_row' t-value="qty%4" />
+                                    </t>
+                                    <div class="container-fluid p-0">
+                                        <div class="row">
+                                            <t t-foreach="labels_in_row" t-as='label'>
+                                                <div class="col-3"
+                                                    style='border:1px dotted lightgray; text-align:center;'>
+                                                    <div style='height:150px;'>
+                                                        <img
+                                                            t-attf-src="data:image/*;base64,{{form['brand_logo']}}"
+                                                            style="width:290px;"
+                                                            class="img-fluid" />
+                                                    </div>
+                                                    <p
+                                                        style='margin-top:8px; font-weight:bold; font-size: 20px;'>
+                                                        <t t-esc="amz_sku['sku_code']" />
+                                                    </p>
+                                                    <p
+                                                        style='margin-top:-17px; font-size: 20px;'>
+                                                        <t t-esc="form['verbose_name']" />
+                                                    </p>
+                                                    <p
+                                                        style='margin-top:-11px; font-weight:bold; font-size: 21px;'>
+                                                        MRP₹ <t t-esc="amz_sku['mrp']" /></p>
+                                                    <img
+                                                        t-att-src="'/report/barcode/EAN13/'+amz_sku['fnsku']"
+                                                        style="margin-left:-20px; margin-top:-11px; width:366px;"
+                                                        alt="Barcode" />
+                                                    <p style='margin-top:2px; font-size: 21px;'>
+                                                        <t t-esc="amz_sku['fnsku']" />
+                                                    </p>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <t t-if='row%5 == 4'>
+                                        <p style="page-break-before:always;" />
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

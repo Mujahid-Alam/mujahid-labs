@@ -1,0 +1,7 @@
+venv/
+*.pdf
+jiomart_scraped_data.csv
+__pycache__/video-cloud-automation-pipeline/
+video-cloud-automation-pipeline/
+venv/
+*.pdf

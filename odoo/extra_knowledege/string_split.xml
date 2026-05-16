@@ -1,0 +1,7 @@
+<!-- in xml language string split -->
+
+<div class="col-9" >
+    <t t-set="splited" t-value="o.name.split('-')"/>
+    <p style='font-weight: bold;font-size: 45px; text-align: center;'><t t-esc="splited[0]"/></p>
+
+</div>

@@ -1,0 +1,39 @@
+def parse_preview(self, options, count=50):
+        self.ensure_one()
+        fields_tree = self.get_fields_tree(self.res_model)
+        try:
+            file_length, rows = self._read_file(options)
+            row =  rows[0]
+            add_header = ['Check In', 'Check Out', 'Employee', 'Worked Hours']
+            row.extend(add_header)
+            header = row
+            print('-----------', header)
+
+            if file_length <= 0:
+                raise ImportValidationError(_("Import file has no content or is corrupt"))
+            preview = rows[:count]
+            for i in preview:
+                date_time = i[0]
+                emp_batch_num = i[1]
+                check_in_out = i[2]
+                hr_employee = self.env['hr.employee'].search([])
+                
+                for i in hr_employee:
+                    emp_barcode =  i.barcode
+                    if emp_barcode is not False:
+                        if emp_batch_num in emp_barcode:
+                            employee_name_in = i.name
+                            if check_in_out == 'IN':
+                                print(f'{employee_name_in} {emp_batch_num}  {check_in_out} {date_time}')
+
+                            elif check_in_out == 'OUT':
+                                print(f'{employee_name_in} {emp_batch_num}  {check_in_out} {date_time}')
+
+                            else:
+                                print('else')
+                                    
+        except Exception as error:
+            print('----EXCEPT-----')
+            
+        res = super(Import, self).parse_preview(options, count)
+        return res
